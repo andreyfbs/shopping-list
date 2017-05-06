@@ -46,7 +46,7 @@ project(':sl-api') {
 
 	dependencies {
 
-		//compile project(":sales-control-core")
+		compile project(":sl-core")
 		//compile project(":sales-control-model")
 
 		compile(group: 'org.springframework.boot', name: 'spring-boot-starter', version: springBootVersion) {
@@ -59,3 +59,26 @@ project(':sl-api') {
 	}
 }
 
+project(':sl-core') {
+
+	dependencies {
+		compile project(":sl-model")
+		//compile project(":sales-control-repository")
+
+		compile(group: 'org.springframework.boot', name: 'spring-boot-starter', version: springBootVersion) {
+			exclude module: 'spring-boot-starter-logging'
+		}
+	}
+}
+
+project(':sl-model') {
+
+	dependencies {
+		compile(group: 'org.springframework.boot', name: 'spring-boot-starter', version: springBootVersion) {
+			exclude module: 'spring-boot-starter-logging'
+		}
+		compile(group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: springBootVersion)
+
+		compile(group: 'org.springframework.boot', name: 'spring-boot-starter-data-rest', version: springBootVersion)
+	}
+}

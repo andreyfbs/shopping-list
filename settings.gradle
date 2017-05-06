@@ -1,2 +1,4 @@
 include 'sl-api'
+include 'sl-core'
+include 'sl-model'
 
