@@ -1,0 +1,245 @@
+Link via What's up
+
+param1=listIdServer
+param2=listUserOwnerId
+
+## Invite someone to the list
+
+### Method [GET]
+
++ Request (application/json)
+    + Headers
+            X-Token-Session: <STRING>
+	    X-Account-device-id": <LONG>
+    + Body
+    {
+	"list-id-server": <LONG>
+    }
+
++ Response 200 (application/json)
+    + Body
+    {
+	"link-whats" : <STRING>
+    }
+
+
+
+### Method [POST]
+
++ Request (application/json)
+    + Headers
+            X-Token-Session: <STRING>
+	    X-Account-device-id": <LONG>
+    + Body
+    {
+	"list-id-server": <LONG>,
+        "list-user-owner-id": <LONG>
+    }
+
++ Response 201 (application/json)
+    + Body
+    {
+	<EMPTY>
+    }
+
+
+## Confirm Accepting the Invitation
+
+### Method [POST}
+
++ Request (application/json)
+    + Headers
+            X-Token-Session: <STRING>
+	    X-Account-device-id": <LONG>
+    + Body
+    {
+	"list-id-server": <LONG>,
+        "list-user-owner-id": <LONG>
+    }
+
++ Response 201 (application/json)
+    + Body
+    {
+	<EMPTY>
+    }
+
+
+## Creating a new List with Items:
+
+### Method [POST}
+
++ Request (application/json)
+    + Headers
+            X-Token-Session: <STRING>
+	    X-Account-device-id": <LONG>
+    + Body
+    {
+	"list-id-device": <LONG>,
+        "list-name": <STRING>,
+        "items": [{ # Example 2 items
+                "item-id-device": <LONG>,
+                "item-name": <STRING>,
+                "is-checked": <BOOLEAN>,
+                "quantity-description": <STRING>
+            }, {
+                "item-id-device": <LONG>,
+                "item-name": <STRING>,
+                "is-checked": <BOOLEAN>,
+                "quantity-description": <STRING>
+            }]
+     }
+
++ Response 201 (application/json)
+    + Body
+    {
+	"list-id-server": <LONG>
+        "items": [{
+                "item-id-device": <LONG>,
+		"item-id-server": <LONG>
+            }, {
+                "item-id-device": <LONG>,
+		"item-id-server": <LONG>
+            }]
+
+    }
+
+
+## Updating a new List with Items:
+
+### Method [PUT}
+
++ Request (application/json)
+    + Headers
+            X-Token-Session: <STRING>
+	    X-Account-device-id": <LONG>
+    + Body
+    {
+	"list-id-device": <LONG>,
+	"list-id-server": <LONG>,
+        "list-name": <STRING>,
+        "items": [{ # Example 2 items
+                "item-id-device": <LONG>,
+                "item-id-server": <LONG>, # Optional
+                "item-name": <STRING>,
+                "is-checked": <BOOLEAN>,
+                "quantity-description": <STRING>,
+		"action" : <STRING>
+            }, {
+                "item-id-device": <LONG>,
+                "item-id-server": <LONG>, # Optional
+                "item-name": <STRING>,
+                "is-checked": <BOOLEAN>,
+                "quantity-description": <STRING>
+		"action" : <STRING>
+            }]
+     }
+
++ Response 200 (application/json)
+    + Body
+    {
+	<EMPTY>
+    }
+
+## Sync Process
+
++ Request (application/json)
+    + Headers
+            X-Token-Session: <STRING>
+	    X-Account-device-id": <LONG>
+    + Body
+    { "lists:" [{ # Example 1 list
+	"list-id-device": <LONG>,
+	"list-id-server": <LONG>, # Optional
+        "list-name": <STRING>,
+        "items": [{ # Example 2 items
+                "item-id-device": <LONG>,
+                "item-id-server": <LONG>, # Optional
+                "item-name": <STRING>,
+                "is-checked": <BOOLEAN>,
+                "quantity-description": <STRING>,
+		"action" : <STRING>
+            }, {
+                "item-id-device": <LONG>,
+                "item-id-server": <LONG>, # Optional
+                "item-name": <STRING>,
+                "is-checked": <BOOLEAN>,
+                "quantity-description": <STRING>
+		"action" : <STRING>
+            }]
+	}]
+     }
+
++ Response 200 (application/json)
+    + Body
+    { "lists:" [{ # Example 1 list
+	"list-id-device": <LONG>,
+	"list-id-server": <LONG>,
+        "list-name": <STRING>,
+	"user-name-last-changed": <STRING> # <OPTIONAL>
+        "items": [{ # Example 2 items
+                "item-id-device": <LONG>,
+                "item-id-server": <LONG>,
+                "item-name": <STRING>,
+                "is-checked": <BOOLEAN>,
+                "quantity-description": <STRING>,
+		"action" : <STRING>,
+		"user-name-last-changed": <STRING> # <OPTIONAL>
+            }, {
+                "item-id-device": <LONG>,
+                "item-id-server": <LONG>,
+                "item-name": <STRING>,
+                "is-checked": <BOOLEAN>,
+                "quantity-description": <STRING>
+		"action" : <STRING>,
+		"user-name-last-changed": <STRING> # <OPTIONAL>
+            }]
+	}]
+     }
+
+
+## Creating a new User:
+
+### Method [POST}
++ Request (application/json)
+    + Body
+    {
+	"name": <STRING>
+	"user-login": <STRING>
+	"password": <STRING>
+    }
+
++ Response 201 (application/json)
+    + Body
+    {
+	"account-device-id": <LONG>
+    }
+
+---------------------------------------------------------------------------
+
+
+TABLE shopping_list (
+    id_server BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT, -- List Id
+    name VARCHAR(64) NOT NULL, -- List Name,
+    user_id_owner, LONG NOT NULL -- UserId of the user that created the list
+    dat_creation TIMESTAMP NOT NULL, -- Creation Date
+    dat_update TIMESTAMP NOT NULL, -- Update Date
+    user_id_last_changed NOT NULL, BIGINT -- UserId of the last modification
+)
+
+TABLE item (
+    id_server BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT, -- Item Id
+    name VARCHAR(64) NOT NULL, -- Item Name,
+    is_marked_as_checked, TINYINT(1) NOT NULL -- Marked items
+    quantity_description VARCHAR(60), -- Description Quantity
+    dat_update TIMESTAMP NOT NULL, -- Update Date
+    user_id_last_changed, BIGINT NOT NULL -- UserId of the last modification
+    list_id, BIGINT FOREIGN KEY REFERENCES list(id_server)
+)
+
+TABLE user_device_list_status (
+    id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT, -- Id
+    user_id, BIGINT NOT NULL, -- One of the users that can access the list
+    account_device_id, BIGINT NOT NULL -- Device that already access the list
+    list_id_server, BIGINT NOT NULL -- ListId of the table list
+    modification_status, VARCHAR(3) NOT NULL -- Modification status of triplet user/device/list. Can be "UP"(UPDATED), "OUT"(OUTDATED)
+)

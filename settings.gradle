@@ -1,4 +1,5 @@
+rootProject.name = 'shopping-list'
 include 'sl-api'
 include 'sl-core'
 include 'sl-model'
-
+include 'sl-repository'
