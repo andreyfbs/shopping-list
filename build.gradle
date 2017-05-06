@@ -1,0 +1,43 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.2.RELEASE'
+		cucumberVersion = '1.2.5'
+		h2databaseVersion = '1.4.192'
+	}
+	repositories {
+		jcenter {
+			url "http://jcenter.bintray.com/"
+		}
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath("com.github.samueltbrown:gradle-cucumber-plugin:0.9")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: "com.github.samueltbrown.cucumber"
+
+subprojects {
+
+    apply plugin: 'java'
+    apply plugin: 'idea'
+	apply plugin: "com.github.samueltbrown.cucumber"
+
+	repositories {
+		jcenter {
+			url "http://jcenter.bintray.com/"
+		}
+	}
+
+	sourceCompatibility = 1.8
+	targetCompatibility = 1.8
+
+	compileJava.options.encoding = 'UTF-8'
+	compileTestJava.options.encoding = 'UTF-8'
+
+	dependencies {
+		testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: springBootVersion)
+	}
+}
