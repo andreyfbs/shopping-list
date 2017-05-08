@@ -1,6 +1,5 @@
 package br.com.santosandrey.sl.api.client;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service

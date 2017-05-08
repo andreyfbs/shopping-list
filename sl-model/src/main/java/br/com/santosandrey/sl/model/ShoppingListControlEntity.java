@@ -1,5 +1,8 @@
 package br.com.santosandrey.sl.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -64,5 +67,38 @@ public class ShoppingListControlEntity {
 
     public Long getListVersion() {
         return listVersion;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ShoppingListControlEntity that = (ShoppingListControlEntity) o;
+
+        return new EqualsBuilder()
+                .append(id, that.id)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(id)
+                .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "ShoppingListControlEntity{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", accountDeviceId=" + accountDeviceId +
+                ", listId=" + listId +
+                ", dateCreation=" + dateCreation +
+                ", dateUpdate=" + dateUpdate +
+                ", listVersion=" + listVersion +
+                '}';
     }
 }

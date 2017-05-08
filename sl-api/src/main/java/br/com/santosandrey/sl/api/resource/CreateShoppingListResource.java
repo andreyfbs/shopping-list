@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+import br.com.santosandrey.sl.api.client.UserStoreService;
 import br.com.santosandrey.sl.api.converter.CreateShoppingListResponseConverter;
 import br.com.santosandrey.sl.api.dto.CreateShoppingListRequest;
 import br.com.santosandrey.sl.api.dto.CreateShoppingListResponse;
+import br.com.santosandrey.sl.core.dto.CreateShoppingListInputDTO;
 import br.com.santosandrey.sl.core.service.ShoppingListService;
 
 @RestController
@@ -30,6 +32,9 @@ public class CreateShoppingListResource {
     @Autowired
     private CreateShoppingListResponseConverter createShoppingListResponseConverter;
 
+    @Autowired
+    private UserStoreService userStoreService;
+
     @RequestMapping(method = RequestMethod.POST, value = EndPointURL.URL_SHOPPING_LIST)
     public ResponseEntity<CreateShoppingListResponse> createNewList(
             @RequestHeader(value = "X-Token-Session", required = true) final String accessToken,
@@ -38,7 +43,8 @@ public class CreateShoppingListResource {
 
         LOGGER.info(createShoppingListRequest.toString());
 
-        //shoppingListService.createNewList();
+        shoppingListService.createNewList(new CreateShoppingListInputDTO(createShoppingListRequest, userStoreService.retrieveUserId(accessToken), Long.valueOf(accountDeviceId)));
+
         return ResponseEntity.status(HttpStatus.CREATED).body(createShoppingListResponseConverter.convertFrom(null));
     }
 }
