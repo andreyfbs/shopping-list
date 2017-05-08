@@ -1,11 +1,14 @@
 package br.com.santosandrey.sl.model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class ShoppingListEntity {
@@ -26,16 +29,20 @@ public class ShoppingListEntity {
 
     private Long actualVersion;
 
+    @OneToMany(mappedBy = "shoppingListEntity", cascade = CascadeType.ALL)
+    private List<ItemEntity> itemEntityList;
+
     public ShoppingListEntity() {
     }
 
-    public ShoppingListEntity(String name, Long userOwnerId, Date dateCreation, Date dateUpdate, Long userIdLastChanged, Long actualVersion) {
+    public ShoppingListEntity(String name, Long userOwnerId, Date dateCreation, Date dateUpdate, Long userIdLastChanged, Long actualVersion, List<ItemEntity> itemEntityList) {
         this.name = name;
         this.userOwnerId = userOwnerId;
         this.dateCreation = dateCreation;
         this.dateUpdate = dateUpdate;
         this.userIdLastChanged = userIdLastChanged;
         this.actualVersion = actualVersion;
+        this.itemEntityList = itemEntityList;
     }
 
     public Long getId() {

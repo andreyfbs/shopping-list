@@ -72,6 +72,7 @@ project(':sl-core') {
 	dependencies {
 		compile project(":sl-model")
 		compile project(":sl-repository")
+		compile project(":sl-api")
 
 		compile(group: 'org.springframework.boot', name: 'spring-boot-starter', version: springBootVersion) {
 			exclude module: 'spring-boot-starter-logging'

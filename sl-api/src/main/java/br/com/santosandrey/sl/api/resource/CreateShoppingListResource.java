@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import br.com.santosandrey.sl.api.converter.CreateShoppingListResponseConverter;
 import br.com.santosandrey.sl.api.dto.CreateShoppingListRequest;
 import br.com.santosandrey.sl.api.dto.CreateShoppingListResponse;
-import br.com.santosandrey.sl.core.ShoppingListService;
+import br.com.santosandrey.sl.core.service.ShoppingListService;
 
 @RestController
 //@TokenValidationRequired
@@ -38,7 +38,7 @@ public class CreateShoppingListResource {
 
         LOGGER.info(createShoppingListRequest.toString());
 
-        shoppingListService.createNewList();
+        //shoppingListService.createNewList();
         return ResponseEntity.status(HttpStatus.CREATED).body(createShoppingListResponseConverter.convertFrom(null));
     }
 }

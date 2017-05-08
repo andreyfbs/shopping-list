@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
 @ComponentScan("br.com.santosandrey.sl")
-@Import({SlApiConfiguration.class, SwaggerConfig.class})
+@Import({SlApiConfiguration.class, SwaggerConfig.class, SlModelConfiguration.class})
 public class SlApiApplication {
 
     public static void main(String[] args) {
