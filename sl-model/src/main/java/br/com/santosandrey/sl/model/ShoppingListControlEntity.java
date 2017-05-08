@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class SyncAccessControlEntity {
+public class ShoppingListControlEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,18 +24,18 @@ public class SyncAccessControlEntity {
 
     private Date dateUpdate;
 
-    private String modificationStatus;
+    private Long listVersion;
 
-    public SyncAccessControlEntity() {
+    public ShoppingListControlEntity() {
     }
 
-    public SyncAccessControlEntity(Long userId, Long accountDeviceId, Long listId, Date dateCreation, Date dateUpdate, String modificationStatus) {
+    public ShoppingListControlEntity(Long userId, Long accountDeviceId, Long listId, Date dateCreation, Date dateUpdate, Long listVersion) {
         this.userId = userId;
         this.accountDeviceId = accountDeviceId;
         this.listId = listId;
         this.dateCreation = dateCreation;
         this.dateUpdate = dateUpdate;
-        this.modificationStatus = modificationStatus;
+        this.listVersion = listVersion;
     }
 
     public Long getId() {
@@ -62,7 +62,7 @@ public class SyncAccessControlEntity {
         return dateUpdate;
     }
 
-    public String getModificationStatus() {
-        return modificationStatus;
+    public Long getListVersion() {
+        return listVersion;
     }
 }

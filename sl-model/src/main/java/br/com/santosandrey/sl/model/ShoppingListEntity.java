@@ -24,15 +24,18 @@ public class ShoppingListEntity {
 
     private Long userIdLastChanged;
 
+    private Long actualVersion;
+
     public ShoppingListEntity() {
     }
 
-    public ShoppingListEntity(String name, Long userOwnerId, Date dateCreation, Date dateUpdate, Long userIdLastChanged) {
+    public ShoppingListEntity(String name, Long userOwnerId, Date dateCreation, Date dateUpdate, Long userIdLastChanged, Long actualVersion) {
         this.name = name;
         this.userOwnerId = userOwnerId;
         this.dateCreation = dateCreation;
         this.dateUpdate = dateUpdate;
         this.userIdLastChanged = userIdLastChanged;
+        this.actualVersion = actualVersion;
     }
 
     public Long getId() {
@@ -57,5 +60,9 @@ public class ShoppingListEntity {
 
     public Long getUserIdLastChanged() {
         return userIdLastChanged;
+    }
+
+    public Long getActualVersion() {
+        return actualVersion;
     }
 }
