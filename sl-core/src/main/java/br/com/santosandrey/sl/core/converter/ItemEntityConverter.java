@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import br.com.santosandrey.sl.api.dto.CreateShoppingListItemRequest;
 import br.com.santosandrey.sl.core.dto.CreateShoppingListInputDTO;
+import br.com.santosandrey.sl.core.dto.CreateShoppingListItemDTO;
 import br.com.santosandrey.sl.model.ItemEntity;
 import br.com.santosandrey.sl.model.ShoppingListEntity;
 
@@ -21,13 +21,13 @@ public class ItemEntityConverter {
         final Date updateDate = new Date();
 
         List<ItemEntity> itemEntityList = new ArrayList<>();
-        for (CreateShoppingListItemRequest createShoppingListItemRequest : createShoppingListInputDTO.getCreateShoppingListRequest().getItems()) {
+        for (CreateShoppingListItemDTO createShoppingListItemDTO : createShoppingListInputDTO.getCreateShoppingListDTO().getItems()) {
 
-            String itemName = createShoppingListItemRequest.getItemName();
-            Boolean markedChecked = createShoppingListItemRequest.isChecked();
-            String quantityDescription = createShoppingListItemRequest.getQuantityDescription();
+            String itemName = createShoppingListItemDTO.getItemName();
+            Boolean markedChecked = createShoppingListItemDTO.isChecked();
+            String quantityDescription = createShoppingListItemDTO.getQuantityDescription();
 
-            ItemEntity itemEntity = new ItemEntity(itemName, markedChecked, quantityDescription, creationDate, updateDate, shoppingListEntity);
+            ItemEntity itemEntity = new ItemEntity(itemName, markedChecked, quantityDescription, creationDate, updateDate, shoppingListEntity, createShoppingListItemDTO.getItemIdDevice());
             itemEntityList.add(itemEntity);
 
         }

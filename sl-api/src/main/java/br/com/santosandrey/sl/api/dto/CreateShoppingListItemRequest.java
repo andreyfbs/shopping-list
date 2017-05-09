@@ -50,4 +50,14 @@ public class CreateShoppingListItemRequest {
     public void setChecked(boolean checked) {
         this.checked = checked;
     }
+
+    @Override
+    public String toString() {
+        return "CreateShoppingListItemRequest{" +
+                "itemIdDevice=" + itemIdDevice +
+                ", itemName='" + itemName + '\'' +
+                ", checked=" + checked +
+                ", quantityDescription='" + quantityDescription + '\'' +
+                '}';
+    }
 }

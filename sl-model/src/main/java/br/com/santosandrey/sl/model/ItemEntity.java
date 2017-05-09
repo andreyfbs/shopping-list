@@ -12,7 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class ItemEntity {
@@ -35,6 +35,9 @@ public class ItemEntity {
     @JoinColumn(name = "list_id", nullable = false)
     private ShoppingListEntity shoppingListEntity;
 
+    @Transient
+    private Long idDevice;
+
     public ItemEntity(String name, Boolean markedChecked, String quantityDescription, Date dateCreation, Date dateUpdate, ShoppingListEntity shoppingListEntity) {
         this.name = name;
         this.markedChecked = markedChecked;
@@ -43,6 +46,17 @@ public class ItemEntity {
         this.dateUpdate = dateUpdate;
         this.shoppingListEntity = shoppingListEntity;
     }
+
+    public ItemEntity(String name, Boolean markedChecked, String quantityDescription, Date dateCreation, Date dateUpdate, ShoppingListEntity shoppingListEntity, Long idDevice) {
+        this.name = name;
+        this.markedChecked = markedChecked;
+        this.quantityDescription = quantityDescription;
+        this.dateCreation = dateCreation;
+        this.dateUpdate = dateUpdate;
+        this.shoppingListEntity = shoppingListEntity;
+        this.idDevice = idDevice;
+    }
+
 
     public Long getId() {
         return id;
@@ -70,6 +84,10 @@ public class ItemEntity {
 
     public ShoppingListEntity getShoppingListEntity() {
         return shoppingListEntity;
+    }
+
+    public Long getIdDevice() {
+        return idDevice;
     }
 
     @Override

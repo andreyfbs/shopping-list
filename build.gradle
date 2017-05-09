@@ -5,6 +5,8 @@ buildscript {
 		h2databaseVersion = '1.4.192'
 		commonsLangVersion = '3.4'
 		springfoxVersion = '2.6.1'
+		jacocoAgentVersion = '0.7.6.201602180812'
+		sonarScannerVersion = '2.2.1'
 	}
 	repositories {
 		jcenter {
@@ -14,23 +16,64 @@ buildscript {
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 		classpath("com.github.samueltbrown:gradle-cucumber-plugin:0.9")
+		classpath group : 'org.jacoco', name : 'org.jacoco.agent', version : jacocoAgentVersion
+		classpath group: 'org.sonarsource.scanner.gradle', name: 'sonarqube-gradle-plugin', version: sonarScannerVersion
 	}
 }
 
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: "com.github.samueltbrown.cucumber"
+apply plugin: 'org.sonarqube'
+
+allprojects {
+
+	project.ext.exclusions = [
+			'**/*DTO.java',
+			'**/*Request.java',
+			'**/*Response.java',
+			'**/*Entity.java',
+			'**/*Config.java',
+			'**/*Application.java'
+	]
+
+	sonarqube {
+		properties {
+			property "sonar.host.url", "http://localhost:9000/"
+			property "sonar.java.coveragePlugin", "jacoco"
+			property "sonar.sourceEncoding", "UTF-8"
+			property "sonar.scm.disabled", "true"
+			property "sonar.buildbreaker.skip", "false"
+			property "sonar.jacoco.reportPath", "$buildDir/jacoco/test.exec"
+			property "sonar.jacoco.itReportPath", rootProject.findProject('sl-component-tests').buildDir.toString() + "/jacoco/test.exec"
+			//property "sonar.jacoco.reportPaths", rootProject.findProject('sl-component-tests').buildDir.toString() + "/jacoco/test.exec"
+			property 'sonar.coverage.exclusions', project.ext.exclusions
+		}
+	}
+}
 
 subprojects {
 
     apply plugin: 'java'
     apply plugin: 'idea'
 	apply plugin: "com.github.samueltbrown.cucumber"
+	apply plugin: 'jacoco'
 
 	repositories {
 		jcenter {
 			url "http://jcenter.bintray.com/"
 		}
+	}
+
+	jacocoTestReport {
+		reports {
+			xml.enabled true
+		}
+	}
+
+	jacoco {
+		toolVersion = jacocoAgentVersion
+		applyTo(tasks.withType(JavaExec))
 	}
 
 	sourceCompatibility = 1.8
@@ -72,7 +115,6 @@ project(':sl-core') {
 	dependencies {
 		compile project(":sl-model")
 		compile project(":sl-repository")
-		compile project(":sl-api")
 
 		compile(group: 'org.springframework.boot', name: 'spring-boot-starter', version: springBootVersion) {
 			exclude module: 'spring-boot-starter-logging'

@@ -14,14 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 import br.com.santosandrey.sl.api.client.UserStoreService;
+import br.com.santosandrey.sl.api.converter.CreateShoppingListDTOConverter;
 import br.com.santosandrey.sl.api.converter.CreateShoppingListResponseConverter;
 import br.com.santosandrey.sl.api.dto.CreateShoppingListRequest;
 import br.com.santosandrey.sl.api.dto.CreateShoppingListResponse;
+import br.com.santosandrey.sl.api.interceptor.TokenValidationRequired;
 import br.com.santosandrey.sl.core.dto.CreateShoppingListInputDTO;
+import br.com.santosandrey.sl.core.dto.CreateShoppingListOutputDTO;
 import br.com.santosandrey.sl.core.service.ShoppingListService;
 
 @RestController
-//@TokenValidationRequired
+@TokenValidationRequired
 public class CreateShoppingListResource {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CreateShoppingListResource.class);
@@ -33,6 +36,9 @@ public class CreateShoppingListResource {
     private CreateShoppingListResponseConverter createShoppingListResponseConverter;
 
     @Autowired
+    private CreateShoppingListDTOConverter createShoppingListDTOConverter;
+
+    @Autowired
     private UserStoreService userStoreService;
 
     @RequestMapping(method = RequestMethod.POST, value = EndPointURL.URL_SHOPPING_LIST)
@@ -40,11 +46,13 @@ public class CreateShoppingListResource {
             @RequestHeader(value = "X-Token-Session", required = true) final String accessToken,
             @RequestHeader(value = "X-Account-device-id", required = true) final String accountDeviceId,
             @RequestBody @Valid CreateShoppingListRequest createShoppingListRequest) {
+        LOGGER.info("c=CreateShoppingListResource, m=createNewList, createShoppingListRequest={}", createShoppingListRequest);
 
-        LOGGER.info(createShoppingListRequest.toString());
+        CreateShoppingListOutputDTO createShoppingListOutputDTO = shoppingListService.createNewList(new CreateShoppingListInputDTO(createShoppingListDTOConverter.convertFrom(createShoppingListRequest), userStoreService.retrieveUserId(accessToken), Long.valueOf(accountDeviceId)));
 
-        shoppingListService.createNewList(new CreateShoppingListInputDTO(createShoppingListRequest, userStoreService.retrieveUserId(accessToken), Long.valueOf(accountDeviceId)));
+        CreateShoppingListResponse createShoppingListResponse = createShoppingListResponseConverter.convertFrom(createShoppingListOutputDTO);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(createShoppingListResponseConverter.convertFrom(null));
+        LOGGER.info("c=CreateShoppingListResource, m=createNewList, createShoppingListResponse={}", createShoppingListResponse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createShoppingListResponse);
     }
 }

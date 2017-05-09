@@ -28,6 +28,9 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+import static org.hamcrest.Matchers.is;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
 @SpringBootTest("server.port:0")
 @ContextConfiguration(classes = {SlApiApplication.class}, loader = SpringBootContextLoader.class)
 public class CreateShoppingListStepDef {
@@ -88,12 +91,12 @@ public class CreateShoppingListStepDef {
     }
 
     @Then("^the list-id-server is (\\d+)$")
-    public void the_list_id_server_is(int arg1) throws Throwable {
-
+    public void the_list_id_server_is(int listIdServer) throws Throwable {
+        resultActions.andExpect(jsonPath("list-id-server", is(listIdServer)));
     }
 
     @Then("^the items are$")
-    public void the_items_are(List<Map<String, String>> data) throws Throwable {
-
+    public void the_items_are(List<Map<String, String>> listItemsMap) throws Throwable {
+        return;
     }
 }

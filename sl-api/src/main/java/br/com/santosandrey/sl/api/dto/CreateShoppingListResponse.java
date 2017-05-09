@@ -7,9 +7,9 @@ import java.util.List;
 public class CreateShoppingListResponse {
 
     @JsonProperty("list-id-server")
-    private Long listIdServer;
+    private final Long listIdServer;
 
-    private List<CreateShoppingListItemResponse> items;
+    private final List<CreateShoppingListItemResponse> items;
 
     public CreateShoppingListResponse(Long listIdServer, List<CreateShoppingListItemResponse> items) {
         this.listIdServer = listIdServer;

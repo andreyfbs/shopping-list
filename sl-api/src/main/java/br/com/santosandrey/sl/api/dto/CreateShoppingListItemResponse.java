@@ -15,9 +15,6 @@ public class CreateShoppingListItemResponse {
         this.itemIdDevice = itemIdDevice;
     }
 
-    public CreateShoppingListItemResponse() {
-    }
-
     public Long getItemIdServer() {
         return itemIdServer;
     }

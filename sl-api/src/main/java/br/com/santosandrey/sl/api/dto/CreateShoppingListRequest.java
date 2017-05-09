@@ -40,4 +40,13 @@ public class CreateShoppingListRequest {
     public void setItems(List<CreateShoppingListItemRequest> items) {
         this.items = items;
     }
+
+    @Override
+    public String toString() {
+        return "CreateShoppingListRequest{" +
+                "listIdDevice=" + listIdDevice +
+                ", listName='" + listName + '\'' +
+                ", items=" + items +
+                '}';
+    }
 }

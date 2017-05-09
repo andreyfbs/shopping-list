@@ -6,8 +6,8 @@ Feature: Creation of New Lists
       | list-name      | List 1 |
     And the items
       | item-id-device | item-name | is-checked | quantity-description |
-      | 1              | Item 1    | true       | 2                    |
-      | 2              | Item 2    | false      | 3                    |
+      | 11             | Item 1    | true       | 2                    |
+      | 12             | Item 2    | false      | 3                    |
     When I click to create a new List
     Then the returned status is 201
     And the list-id-server is 1
