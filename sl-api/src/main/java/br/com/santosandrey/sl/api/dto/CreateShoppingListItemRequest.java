@@ -8,7 +8,6 @@ import javax.validation.constraints.Size;
 public class CreateShoppingListItemRequest {
 
     @NotNull
-    @Size(min = 1)
     @JsonProperty("item-id-device")
     private Long itemIdDevice;
 
@@ -18,7 +17,6 @@ public class CreateShoppingListItemRequest {
     private String itemName;
 
     @NotNull
-    @Size(min = 1)
     @JsonProperty("is-checked")
     private boolean checked;
 

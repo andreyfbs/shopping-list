@@ -10,7 +10,6 @@ import javax.validation.constraints.Size;
 public class CreateShoppingListRequest {
 
     @NotNull
-    @Size(min = 1)
     @JsonProperty("list-id-device")
     private Long listIdDevice;
 

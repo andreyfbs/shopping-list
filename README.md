@@ -87,6 +87,27 @@ For tests in the application, check:
 
 http://localhost:8090/swagger-ui.html
 
+Use this example data:
+
+X-Token-Session = "1cae11ac-f3cd-437a-9a00-a4a4a2715dc0"
+
+X-Account-device-id = "1"
+
+{
+  "list-id-device": 2,
+  "list-name": "Name 1",
+  "items": [{
+	"item-id-device": 11,
+	"item-name": "Item 1",
+	"is-checked": true,
+	"quantity-description": "2"
+   }, {
+	"item-id-device": 12,
+	"item-name": "Item 2",
+	"is-checked": false,
+	"quantity-description": "1"
+   }]
+}
 
 ## DataBase
 
