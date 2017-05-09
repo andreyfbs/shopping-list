@@ -20,7 +20,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest("server.port:0")
 @ContextConfiguration(classes = {SlApiApplication.class}, loader = SpringBootContextLoader.class)
-@ActiveProfiles("test-build")
 public class BaseStepDefs {
 
     @Autowired
@@ -49,21 +48,12 @@ public class BaseStepDefs {
         });
     }
 
-    protected ResultMatcher getMatcherErrorMessage(String message) {
-        return jsonPath("$.errors[0].message", is(message));
-    }
-
-    protected ResultMatcher getMatcherErrorCode(String code) {
-        return jsonPath("$.errors[0].code", is(code));
-    }
-
     protected void executeRequest(RequestBuilder requestBuilder) throws Exception {
         // When
         resultActions = mockMvc.perform(requestBuilder);
 
         // Set the result in Context
         stepDefinitionContext.setResultActions(resultActions);
-
     }
 
 }

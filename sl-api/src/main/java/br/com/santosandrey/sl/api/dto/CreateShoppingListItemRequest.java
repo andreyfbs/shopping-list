@@ -11,7 +11,7 @@ public class CreateShoppingListItemRequest {
     private String itemName;
 
     @JsonProperty("is-checked")
-    private boolean isChecked;
+    private boolean checked;
 
     @JsonProperty("quantity-description")
     private String quantityDescription;
@@ -27,11 +27,27 @@ public class CreateShoppingListItemRequest {
         return itemName;
     }
 
-    public boolean isChecked() {
-        return isChecked;
-    }
-
     public String getQuantityDescription() {
         return quantityDescription;
+    }
+
+    public void setItemIdDevice(Long itemIdDevice) {
+        this.itemIdDevice = itemIdDevice;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public void setQuantityDescription(String quantityDescription) {
+        this.quantityDescription = quantityDescription;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 }

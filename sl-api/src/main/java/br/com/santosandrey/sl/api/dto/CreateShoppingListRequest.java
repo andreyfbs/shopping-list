@@ -28,4 +28,16 @@ public class CreateShoppingListRequest {
     public List<CreateShoppingListItemRequest> getItems() {
         return items;
     }
+
+    public void setListIdDevice(Long listIdDevice) {
+        this.listIdDevice = listIdDevice;
+    }
+
+    public void setListName(String listName) {
+        this.listName = listName;
+    }
+
+    public void setItems(List<CreateShoppingListItemRequest> items) {
+        this.items = items;
+    }
 }
