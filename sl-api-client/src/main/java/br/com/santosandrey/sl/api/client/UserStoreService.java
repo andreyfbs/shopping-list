@@ -1,5 +1,8 @@
 package br.com.santosandrey.sl.api.client;
 
+/**
+ * User Store
+ */
 public interface UserStoreService {
 
     Long retrieveUserId(String token);

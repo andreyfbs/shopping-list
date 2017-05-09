@@ -20,8 +20,11 @@ import br.com.santosandrey.sl.repository.ItemRepository;
 import br.com.santosandrey.sl.repository.ShoppingListControlRepository;
 import br.com.santosandrey.sl.repository.ShoppingListRepository;
 
+/**
+ * Implementation of {@link CreateShoppingListService}
+ */
 @Service
-public class ShoppingListServiceImpl implements ShoppingListService {
+public class CreateShoppingListServiceImpl implements CreateShoppingListService {
 
     @Autowired
     private ShoppingListEntityConverter shoppingListEntityConverter;
@@ -41,15 +44,23 @@ public class ShoppingListServiceImpl implements ShoppingListService {
     @Autowired
     private ShoppingListControlRepository shoppingListControlRepository;
 
+    /**
+     * This method is transactional because there are some saves in DataBase and these have to be persisted together.
+     */
     @Override
     @Transactional
     public CreateShoppingListOutputDTO createNewList(final CreateShoppingListInputDTO createShoppingListInputDTO) {
 
+        // Convert DTO to the Entity (List)
         final ShoppingListEntity shoppingListEntity = shoppingListEntityConverter.converterFrom(createShoppingListInputDTO);
+
+        // Save the List Entity
         final ShoppingListEntity shoppingListPersisted = shoppingListRepository.save(shoppingListEntity);
 
+        // Convert DTO to the Entity (Items)
         final List<ItemEntity> itemEntityList = itemEntityConverter.converterFrom(createShoppingListInputDTO, shoppingListPersisted);
 
+        // Save the Items Entity
         List<CreateShoppingListItemOutputDTO> createShoppingListItemOutputDTOList = new ArrayList<>();
         for (ItemEntity itemEntity : itemEntityList) {
             ItemEntity itemEntityPersisted = itemRepository.save(itemEntity);
@@ -57,7 +68,10 @@ public class ShoppingListServiceImpl implements ShoppingListService {
             createShoppingListItemOutputDTOList.add(createShoppingListItemOutputDTO);
         }
 
+        // Convert DTO to the Entity
         final ShoppingListControlEntity shoppingListControlEntity = shoppingListControlEntityConverter.converterFrom(createShoppingListInputDTO, shoppingListPersisted);
+
+        // Save the Entity
         shoppingListControlRepository.save(shoppingListControlEntity);
 
         return new CreateShoppingListOutputDTO(shoppingListPersisted.getId(), createShoppingListItemOutputDTOList);

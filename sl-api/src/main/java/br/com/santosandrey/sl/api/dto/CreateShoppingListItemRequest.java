@@ -2,17 +2,28 @@ package br.com.santosandrey.sl.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class CreateShoppingListItemRequest {
 
+    @NotNull
+    @Size(min = 1)
     @JsonProperty("item-id-device")
     private Long itemIdDevice;
 
+    @NotNull
+    @Size(min = 1)
     @JsonProperty("item-name")
     private String itemName;
 
+    @NotNull
+    @Size(min = 1)
     @JsonProperty("is-checked")
     private boolean checked;
 
+    @NotNull
+    @Size(min = 1)
     @JsonProperty("quantity-description")
     private String quantityDescription;
 

@@ -2,6 +2,9 @@ package br.com.santosandrey.sl.api.client;
 
 import org.springframework.stereotype.Service;
 
+/**
+ * User Store Mock
+ */
 @Service
 public class UserStoreServiceMock implements UserStoreService {
 

@@ -21,8 +21,11 @@ import br.com.santosandrey.sl.api.dto.CreateShoppingListResponse;
 import br.com.santosandrey.sl.api.interceptor.TokenValidationRequired;
 import br.com.santosandrey.sl.core.dto.CreateShoppingListInputDTO;
 import br.com.santosandrey.sl.core.dto.CreateShoppingListOutputDTO;
-import br.com.santosandrey.sl.core.service.ShoppingListService;
+import br.com.santosandrey.sl.core.service.CreateShoppingListService;
 
+/**
+ * Endpoints of Creation Lists
+ */
 @RestController
 @TokenValidationRequired
 public class CreateShoppingListResource {
@@ -30,7 +33,7 @@ public class CreateShoppingListResource {
     private static final Logger LOGGER = LoggerFactory.getLogger(CreateShoppingListResource.class);
 
     @Autowired
-    private ShoppingListService shoppingListService;
+    private CreateShoppingListService createShoppingListService;
 
     @Autowired
     private CreateShoppingListResponseConverter createShoppingListResponseConverter;
@@ -41,6 +44,13 @@ public class CreateShoppingListResource {
     @Autowired
     private UserStoreService userStoreService;
 
+    /**
+     * This endpoint is when the user wants to create a new List
+     * @param accessToken
+     * @param accountDeviceId
+     * @param createShoppingListRequest
+     * @return CreateShoppingListResponse - List Data after creation
+     */
     @RequestMapping(method = RequestMethod.POST, value = EndPointURL.URL_SHOPPING_LIST)
     public ResponseEntity<CreateShoppingListResponse> createNewList(
             @RequestHeader(value = "X-Token-Session", required = true) final String accessToken,
@@ -48,7 +58,8 @@ public class CreateShoppingListResource {
             @RequestBody @Valid CreateShoppingListRequest createShoppingListRequest) {
         LOGGER.info("c=CreateShoppingListResource, m=createNewList, createShoppingListRequest={}", createShoppingListRequest);
 
-        CreateShoppingListOutputDTO createShoppingListOutputDTO = shoppingListService.createNewList(new CreateShoppingListInputDTO(createShoppingListDTOConverter.convertFrom(createShoppingListRequest), userStoreService.retrieveUserId(accessToken), Long.valueOf(accountDeviceId)));
+        // Convert the Request to a VO in call the service
+        CreateShoppingListOutputDTO createShoppingListOutputDTO = createShoppingListService.createNewList(new CreateShoppingListInputDTO(createShoppingListDTOConverter.convertFrom(createShoppingListRequest), userStoreService.retrieveUserId(accessToken), Long.valueOf(accountDeviceId)));
 
         CreateShoppingListResponse createShoppingListResponse = createShoppingListResponseConverter.convertFrom(createShoppingListOutputDTO);
 

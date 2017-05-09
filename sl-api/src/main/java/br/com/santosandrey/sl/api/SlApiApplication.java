@@ -5,6 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 
+/**
+ * Main class of the Spring Boot
+ */
 @SpringBootApplication
 @ComponentScan("br.com.santosandrey.sl")
 @Import({SlApiConfiguration.class, SwaggerConfig.class, SlModelConfiguration.class})

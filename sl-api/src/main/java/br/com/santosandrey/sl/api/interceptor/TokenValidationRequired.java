@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Usada para o caso de uma requisicao que deve ser verificado o Token
+ * If you annotate a Endpoint with this, it needs User Authentication
  */
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)

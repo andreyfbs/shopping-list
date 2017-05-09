@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.santosandrey.sl.api.client.UserStoreService;
 
 /**
- *
+ * This Interceptor is
  */
 public class TokenUserLoggedValidationInterceptor extends HandlerInterceptorAdapter {
 
@@ -31,7 +31,7 @@ public class TokenUserLoggedValidationInterceptor extends HandlerInterceptorAdap
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws IOException {
 
-        // Verifica se EndPoint precisa passar pelo Token. Se não precisa, já retorna true e a requisição continua
+        // Check if endPoint needs authentication
         if (!checkResourceNeedsToken(handler)) {
             return true;
         }
@@ -45,8 +45,8 @@ public class TokenUserLoggedValidationInterceptor extends HandlerInterceptorAdap
             return false;
         }
 
+        // Check if User is Logged
         Long userId = userStoreService.retrieveUserId(accessToken);
-
         if (!userStoreService.isUserLogged(userId, accessToken)) {
             LOGGER.info("c=TokenValidatorUserAuthenticationInterceptor, M=preHandle, step=userNotLogged, token={}, URI={}", accessToken,
                     request.getRequestURI());

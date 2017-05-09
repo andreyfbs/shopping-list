@@ -10,6 +10,9 @@ import br.com.santosandrey.sl.api.dto.CreateShoppingListRequest;
 import br.com.santosandrey.sl.core.dto.CreateShoppingListDTO;
 import br.com.santosandrey.sl.core.dto.CreateShoppingListItemDTO;
 
+/**
+ * Converter
+ */
 @Component
 public class CreateShoppingListDTOConverter {
 

@@ -10,6 +10,9 @@ import br.com.santosandrey.sl.api.interceptor.TokenUserLoggedValidationIntercept
 @Configuration
 public class SlApiConfiguration extends WebMvcConfigurerAdapter {
 
+    /**
+     * Validation token to the User
+     */
     @Bean
     public TokenUserLoggedValidationInterceptor tokenValidatorUserAuthenticationInterceptor() {
         return new TokenUserLoggedValidationInterceptor();

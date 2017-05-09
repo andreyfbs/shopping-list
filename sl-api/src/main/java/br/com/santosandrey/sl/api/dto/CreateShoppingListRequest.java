@@ -4,11 +4,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class CreateShoppingListRequest {
 
+    @NotNull
+    @Size(min = 1)
     @JsonProperty("list-id-device")
     private Long listIdDevice;
 
+    @NotNull
+    @Size(min = 1)
     @JsonProperty("list-name")
     private String listName;
 

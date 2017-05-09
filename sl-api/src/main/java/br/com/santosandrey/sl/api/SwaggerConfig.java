@@ -12,20 +12,16 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * Classe para configuracao do swagger, habilitado apenas em dev e qa
+ * Swagger config
  */
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
 
-    /**
-     * Pega o diretorio padrao de todos os Resources da API. Caso eles sejam separados, lembrar de
-     * alterar aqui.
-     */
     private static final String SWAGGER_BASIC_SCAN_PACKAGE = CreateShoppingListResource.class.getPackage().getName();
 
     /**
-     * Configura o swagger, acesse via <HOST>:<PORT>/swagger-ui.html
+     * Config the swagger, <HOST>:<PORT>/swagger-ui.html
      */
     @Bean
     public Docket api() {
@@ -34,6 +30,6 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.basePackage(SWAGGER_BASIC_SCAN_PACKAGE)) //
                 .paths(PathSelectors.any()) //
                 .build()//
-                .apiInfo(new ApiInfoBuilder().title("Shopping List Ibanking").description("Api Documentation").build());
+                .apiInfo(new ApiInfoBuilder().title("Shopping List").description("Api Documentation").build());
     }
 }

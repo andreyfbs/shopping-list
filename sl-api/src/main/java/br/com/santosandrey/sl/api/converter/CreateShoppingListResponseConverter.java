@@ -10,6 +10,9 @@ import br.com.santosandrey.sl.api.dto.CreateShoppingListResponse;
 import br.com.santosandrey.sl.core.dto.CreateShoppingListItemOutputDTO;
 import br.com.santosandrey.sl.core.dto.CreateShoppingListOutputDTO;
 
+/**
+ * Converter
+ */
 @Component
 public class CreateShoppingListResponseConverter {
 

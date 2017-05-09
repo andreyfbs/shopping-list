@@ -10,6 +10,10 @@
 * Sonar
 * H2
 
+## Build the Application
+
+./gradlew clean build
+
 ## Run the Application
 
 It's a Spring Boot Application, so it's so easy to execute.
@@ -74,6 +78,7 @@ X-Account-device-id": <LONG>
 }]
 }
 
+
 ## Api Documentation
 
 I used Swagger. One nice thing about it, I can build the documentation using Bottom-up approach, or code first. Another, that is interactive.
@@ -81,6 +86,14 @@ I used Swagger. One nice thing about it, I can build the documentation using Bot
 For tests in the application, check:
 
 http://localhost:8090/swagger-ui.html
+
+
+## DataBase
+
+I used H2 embedded for this task. To access:
+
+http://localhost:8090/h2/console
+
 
 ## Tests
 
