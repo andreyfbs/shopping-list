@@ -118,7 +118,7 @@ http://localhost:8090/h2/console
 
 ## Tests
 
-I've been building Microservices for 2 years. In my projects I realized that the Components tests are one of more effective. Of course, some others Tests are important as well, as Units Tests. For this project I created a basic sample structure to BDD Tests with Cucumber.
+For this project I created a basic sample structure to BDD Tests with Cucumber.
 
 This is a interesting article about Microservices Testing:
 
@@ -130,7 +130,7 @@ Run the class TestCucumberSuiteRunner to see the execution of the tests.
 
 ## SonarQube
 
-I used in this project. Sonar is tool for continuous inspection of code. It's very important to check the quality of the software. You can also check the test coverage.
+I used in this project. Sonar is tool for continuous inspection of code. You can also check the test coverage.
  
 To run:
 
